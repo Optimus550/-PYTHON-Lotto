@@ -1,7 +1,7 @@
 import random
 
 class Lotto:
-    def __init__(self, liczby=None, ilosc=None, lista=None, przedzialy = [range(1, 10), range(10, 20), range(20, 30), range(30, 40), range(40, 50)]):
+    def __init__(self, liczby=None, ilosc=None, przedzialy = [range(1, 10), range(10, 20), range(20, 30), range(30, 40), range(40, 50)]):
         if liczby is None:
             self.liczby = []
         else:
@@ -11,25 +11,20 @@ class Lotto:
             self.ilosc = dict()
         else:
             self.ilosc = ilosc
-
-        if lista is None:
-            self.lista = []
-        else:
-            self.lista = lista
     
         self.przedzialy = przedzialy
 
-    def buble(self, lista): #sortowanie babelkowe
-        semafor = False
-        n = len(self.lista)
+    def buble(self): #sortowanie babelkowe
+        n = len(self.liczby)
         for i in range(n-1):
+            semafor = False
             for j in range(n-i-1):
-                if self.lista[j]>self.lista[j+1]:
-                    self.lista[j], self.lista[j+1] = self.lista[j+1], self.lista[j]
+                if self.liczby[j]>self.liczby[j+1]:
+                    self.liczby[j], self.liczby[j+1] = self.liczby[j+1], self.liczby[j]
                     semafor = True
             if semafor==False:
                 break
-        return self.lista
+        return self.liczby
 
     def jaki_system(self, system):
         for i in range(len(system)):
@@ -48,14 +43,14 @@ class Lotto:
         for i in range(n):
             self.liczby.extend(random.sample(list(zakres[i]), system[i]))
         
-        self.buble(self.liczby)
+        self.buble()
         print(f"Wylosowane liczby wg ", end="")
         self.jaki_system(system)
         print(self.liczby)
         print("")
         return self.liczby
     
-    def podsumowanie(self, liczby): #liczenie z uzyciem slownika
+    def podsumowanie(self): #liczenie z uzyciem slownika
         for i in self.liczby:
             self.ilosc[i] = self.ilosc.get(i, 0) + 1
         return self.ilosc
@@ -69,11 +64,26 @@ class Lotto:
         print(f"==================================")
 
 losowanie = Lotto()
-losowanie.podsumowanie(losowanie.losowanko()) #jedna para 2-1-1-1-1
-losowanie.podsumowanie(losowanie.losowanko([2, 2, 2])) #2-2-2
-losowanie.podsumowanie(losowanie.losowanko([3, 2, 1])) #3-2-1
-losowanie.podsumowanie(losowanie.losowanko([3, 3])) #3-3
-losowanie.podsumowanie(losowanie.losowanko([2, 2, 1, 1])) #2-2-1-1
-losowanie.podsumowanie(losowanie.losowanko([3, 1, 1, 1])) #3-1-1-1
-losowanie.podsumowanie(losowanie.losowanko([4, 1, 1])) #4-1-1
+
+losowanie.losowanko()
+losowanie.podsumowanie() #jedna para 2-1-1-1-1
+
+losowanie.losowanko([2, 2, 2])
+losowanie.podsumowanie() #2-2-2
+
+losowanie.losowanko([3, 2, 1])
+losowanie.podsumowanie() #3-2-1
+
+losowanie.losowanko([3, 3])
+losowanie.podsumowanie() #3-3
+
+losowanie.losowanko([2, 2, 1, 1])
+losowanie.podsumowanie() #2-2-1-1
+
+losowanie.losowanko([3, 1, 1, 1])
+losowanie.podsumowanie() #3-1-1-1
+
+losowanie.losowanko([4, 1, 1])
+losowanie.podsumowanie() #4-1-1
+
 losowanie.wyswietl_podsumowanie()
