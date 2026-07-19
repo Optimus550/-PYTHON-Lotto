@@ -72,17 +72,29 @@ class UI:
         self.page.title='Lotto Losowanie'
         self.page.padding=30
         self.sys_txt=ft.Text(value="System liczbowy")
-        self.drpdwn=ft.Column(controls=[ft.Dropdown(width=200, value="2-1-1-1-1",
-                    options=[
-                        ft.DropdownOption(key="2-1-1-1-1", text="2-1-1-1-1"),
-                        ft.DropdownOption(key="2-2-2", text="2-2-2"),
-                        ft.DropdownOption(key="3-2-1", text="3-2-1"),
-                        ft.DropdownOption(key="3-3", text="3-3"),
-                        ft.DropdownOption(key="2-2-1-1", text="2-2-1-1"),
-                        ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
-                        ft.DropdownOption(key="4-1-1", text="4-1-1"),
-                        ]),
-                        ft.Text(value="a")])
+        self.drpdwn = ft.Column(
+            controls=[
+                ft.Row(
+                    controls=[
+                        ft.Dropdown(
+                            width=200, 
+                            value="2-1-1-1-1",
+                            options=[
+                                ft.DropdownOption(key="2-1-1-1-1", text="2-1-1-1-1"),
+                                ft.DropdownOption(key="2-2-2", text="2-2-2"),
+                                ft.DropdownOption(key="3-2-1", text="3-2-1"),
+                                ft.DropdownOption(key="3-3", text="3-3"),
+                                ft.DropdownOption(key="2-2-1-1", text="2-2-1-1"),
+                                ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
+                                ft.DropdownOption(key="4-1-1", text="4-1-1"),
+                            ]
+                        ), 
+                        ft.IconButton(icon=ft.Icons.DELETE)
+                    ]
+                ),
+                ft.Text(value="a")
+            ]
+        )
         self.btn_add=ft.Button("Dodaj system", on_click=self.dodaj_system)
         self.okno_wynikow = ft.ListView(
             height=300,          # Sztywna wysokość lub expand=True (zajmie całą resztę okna)
@@ -92,16 +104,29 @@ class UI:
         self.page.add(self.sys_txt, self.drpdwn, self.btn_add)#, self.okno_wynikow)
 
     def dodaj_system(self, e):
-        self.drpdwn.controls.append(ft.Dropdown(width=200, value="2-1-1-1-1",
-                    options=[
-                        ft.DropdownOption(key="2-1-1-1-1", text="2-1-1-1-1"),
-                        ft.DropdownOption(key="2-2-2", text="2-2-2"),
-                        ft.DropdownOption(key="3-2-1", text="3-2-1"),
-                        ft.DropdownOption(key="3-3", text="3-3"),
-                        ft.DropdownOption(key="2-2-1-1", text="2-2-1-1"),
-                        ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
-                        ft.DropdownOption(key="4-1-1", text="4-1-1"),
-                        ]))
+        self.drpdwn.controls.append(ft.Column(
+            controls=[
+                ft.Row(
+                    controls=[
+                        ft.Dropdown(
+                            width=200, 
+                            value="2-1-1-1-1",
+                            options=[
+                                ft.DropdownOption(key="2-1-1-1-1", text="2-1-1-1-1"),
+                                ft.DropdownOption(key="2-2-2", text="2-2-2"),
+                                ft.DropdownOption(key="3-2-1", text="3-2-1"),
+                                ft.DropdownOption(key="3-3", text="3-3"),
+                                ft.DropdownOption(key="2-2-1-1", text="2-2-1-1"),
+                                ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
+                                ft.DropdownOption(key="4-1-1", text="4-1-1"),
+                            ]
+                        ), 
+                        ft.IconButton(icon=ft.Icons.DELETE)
+                                ]
+                            )
+                        ]
+                    )
+                )
         self.drpdwn.controls.append(ft.Text(value="a"))
 
         if len(self.drpdwn.controls)>=14:
