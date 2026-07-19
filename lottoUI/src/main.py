@@ -72,7 +72,7 @@ class UI:
         self.page.title='Lotto Losowanie'
         self.page.padding=30
         self.sys_txt=ft.Text(value="System liczbowy")
-        self.drpdwn=ft.Dropdown(width=200, value="2-1-1-1-1",
+        self.drpdwn=ft.Column(controls=[ft.Dropdown(width=200, value="2-1-1-1-1",
                     options=[
                         ft.DropdownOption(key="2-1-1-1-1", text="2-1-1-1-1"),
                         ft.DropdownOption(key="2-2-2", text="2-2-2"),
@@ -81,18 +81,18 @@ class UI:
                         ft.DropdownOption(key="2-2-1-1", text="2-2-1-1"),
                         ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
                         ft.DropdownOption(key="4-1-1", text="4-1-1"),
-                        ])
-        self.los_otp=ft.Text(value="a")
+                        ]),
+                        ft.Text(value="a")])
         self.btn_add=ft.Button("Dodaj system", on_click=self.dodaj_system)
         self.okno_wynikow = ft.ListView(
             height=300,          # Sztywna wysokość lub expand=True (zajmie całą resztę okna)
             spacing=2,           # Odstęp między linijkami
             auto_scroll=True,    # MEGA WAŻNE: automatycznie zjeżdża na dół przy nowym tekście
         )
-        self.page.add(self.sys_txt, self.drpdwn, self.los_otp, self.btn_add, self.okno_wynikow)
+        self.page.add(self.sys_txt, self.drpdwn, self.btn_add)#, self.okno_wynikow)
 
     def dodaj_system(self, e):
-        self.drpdwn=ft.Dropdown(width=200, value="2-1-1-1-1",
+        self.drpdwn.controls.append(ft.Dropdown(width=200, value="2-1-1-1-1",
                     options=[
                         ft.DropdownOption(key="2-1-1-1-1", text="2-1-1-1-1"),
                         ft.DropdownOption(key="2-2-2", text="2-2-2"),
@@ -101,9 +101,11 @@ class UI:
                         ft.DropdownOption(key="2-2-1-1", text="2-2-1-1"),
                         ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
                         ft.DropdownOption(key="4-1-1", text="4-1-1"),
-                        ])
-        self.los_otp=ft.Text(value="a")
-        self.page.add(self.drpdwn, self.los_otp)
+                        ]))
+        self.drpdwn.controls.append(ft.Text(value="a"))
+
+        if len(self.drpdwn.controls)>=14:
+            self.btn_add.visible=False
 
 def main(page: ft.Page):
     gui=UI(page)
