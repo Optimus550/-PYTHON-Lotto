@@ -88,8 +88,7 @@ class UI:
                                 ft.DropdownOption(key="3-1-1-1", text="3-1-1-1"),
                                 ft.DropdownOption(key="4-1-1", text="4-1-1"),
                             ]
-                        ), 
-                        ft.IconButton(icon=ft.Icons.DELETE)
+                        )
                     ]
                 ),
                 ft.Text(value="a")
@@ -104,9 +103,7 @@ class UI:
         self.page.add(self.sys_txt, self.drpdwn, self.btn_add)#, self.okno_wynikow)
 
     def dodaj_system(self, e):
-        self.drpdwn.controls.append(ft.Column(
-            controls=[
-                ft.Row(
+        new_row = ft.Row(
                     controls=[
                         ft.Dropdown(
                             width=200, 
@@ -124,13 +121,23 @@ class UI:
                         ft.IconButton(icon=ft.Icons.DELETE)
                                 ]
                             )
-                        ]
-                    )
-                )
-        self.drpdwn.controls.append(ft.Text(value="a"))
+        new_text = ft.Text(value="a")
+        self.drpdwn.controls.append(new_row)
+        self.drpdwn.controls.append(new_text)
+
+        new_row.controls[1].on_click = lambda e: self.usun_system(new_row, new_text)
 
         if len(self.drpdwn.controls)>=14:
             self.btn_add.visible=False
+        
+    def usun_system(self, del_row, del_text):
+        self.drpdwn.controls = [
+            element for element in self.drpdwn.controls 
+            if element is not del_row and element is not del_text
+        ]
+        
+        if len(self.drpdwn.controls) < 14:
+            self.btn_add.visible = True
 
 def main(page: ft.Page):
     gui=UI(page)
